@@ -7,6 +7,42 @@
 </head>
 
 <body>
+<?php 
+	
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "baseball";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+$sql = "SELECT  name_team FROM teams";//id_team, name_team, desc_team
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+	$results = array();
+    while($row = mysqli_fetch_assoc($result)) {
+        //echo "Team ID = " . $row["id_team"]. " / Team Name = " . $row["name_team"]. " / Team Description = " . $row["desc_team"]. "<br>";
+		$results[] = $row;
+    }
+	   foreach ($results as $result)
+    {
+		$array = [$result['name_team']];
+		
+    }
+
+} else {
+    echo "0 results";
+}
+
+mysqli_close($conn);
+	?>
 <canvas id="myChart"></canvas>
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');

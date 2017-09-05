@@ -50,6 +50,8 @@ if(isset($_GET)){
 
 }
 
+
+
 $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray( null, true, true, true );
 
 $arrayCount = count( $allDataInSheet ); // Here get total count of row in that Excel sheet
