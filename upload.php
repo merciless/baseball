@@ -58,22 +58,22 @@ $arrayCount = count( $allDataInSheet ); // Here get total count of row in that E
 
 
 
-for ( $i = 2; $i <= $arrayCount; $i++ ) {
+for ( $i = 1; $i <= $arrayCount; $i++ ) {
 
 	$year = trim( $allDataInSheet[ $i ][ "A" ] );
 
-	$name = trim( $allDataInSheet[ $i ][ "H" ] );
+	$name = trim( $allDataInSheet[ $i ][ "B" ] );
 
-	$query = "SELECT bb_year FROM records WHERE bb_year = '" . $year . "' and bb_name = '" . $name . "'";
+	$query = "SELECT bb_year FROM records WHERE bb_year = '" . $year . "' and bb_rnd = '" . $name . "'";
 
 	$sql = mysqli_query( $connection, $query );
 	
 	$recResult = mysqli_fetch_array( $sql );
 
-	$existName = $recResult[ "year" ];
+	$existName = $recResult[ "bb_year" ];
 
 	if ( $existName == "" ) {
-		$query = "insert into records (year, name) values('" . $year . "', '" . $name . "');";
+		$query = "insert into records (bb_year, bb_rnd) values('" . $year . "', '" . $name . "');";
 		$insertTable = mysqli_query( $connection, $query );
 
 
