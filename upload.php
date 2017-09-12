@@ -60,20 +60,20 @@ $arrayCount = count( $allDataInSheet ); // Here get total count of row in that E
 
 for ( $i = 2; $i <= $arrayCount; $i++ ) {
 
-	$userName = trim( $allDataInSheet[ $i ][ "A" ] );
+	$year = trim( $allDataInSheet[ $i ][ "A" ] );
 
-	$userMobile = trim( $allDataInSheet[ $i ][ "B" ] );
+	$name = trim( $allDataInSheet[ $i ][ "H" ] );
 
-	$query = "SELECT name FROM records WHERE name = '" . $userName . "' and lname = '" . $userMobile . "'";
+	$query = "SELECT bb_year FROM records WHERE bb_year = '" . $year . "' and bb_name = '" . $name . "'";
 
 	$sql = mysqli_query( $connection, $query );
 	
 	$recResult = mysqli_fetch_array( $sql );
 
-	$existName = $recResult[ "name" ];
+	$existName = $recResult[ "year" ];
 
 	if ( $existName == "" ) {
-		$query = "insert into records (name, lname) values('" . $userName . "', '" . $userMobile . "');";
+		$query = "insert into records (year, name) values('" . $year . "', '" . $name . "');";
 		$insertTable = mysqli_query( $connection, $query );
 
 

@@ -27,19 +27,16 @@ $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
     // output data of each row
 	$results = array();
+	$index=0;
     while($row = mysqli_fetch_assoc($result)) {
         //echo "Team ID = " . $row["id_team"]. " / Team Name = " . $row["name_team"]. " / Team Description = " . $row["desc_team"]. "<br>";
-		$results[] = $row;
-    }
-	   foreach ($results as $result)
-    {
-		$array = [$result['name_team']];
-		
-    }
+		$results[] = $row['name_team'];
+	}
 
-} else {
-    echo "0 results";
-}
+	
+		} else {
+			echo "0 results";
+		}
 
 mysqli_close($conn);
 	?>
@@ -52,7 +49,9 @@ var chart = new Chart(ctx, {
 
     // The data for our dataset
     data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: [<?php foreach ($results as $key => $value) {
+			echo '"' . $value . '", ';
+		} ?>],
         datasets: [{
             label: "My First dataset",
             backgroundColor: 'rgb(255, 99, 132)',
