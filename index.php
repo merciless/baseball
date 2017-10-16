@@ -31,7 +31,7 @@ if ( isset($_POST["submit"]) ) {
 
 			$uploadedStatus = 1;
 
-			header("Location: upload.php?name=" . $todaysdate . '.xlsx');
+			header("Location: upload.php?name=" . $todaysdate . '.xlsx'); // this is a test from Dreamweaver
 
 		}
 
