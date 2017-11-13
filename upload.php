@@ -28,8 +28,8 @@ if (!$db_select) {
 
 set_include_path( get_include_path() . PATH_SEPARATOR . 'Classes/' );
 
-include 'PHPExcel/IOFactory.php';
-include_once('PHPExcel/PHPExcel.php');
+include 'PHPExcel/Classes/PHPExcel/IOFactory.php';
+include_once('PHPExcel/Classes/PHPExcel.php');
 
 if(isset($_GET)){
     $name = $_GET['name'];
@@ -117,30 +117,30 @@ for ( $i = 2; $i <= $arrayCount; $i++ ) {
 	$bonus_per = trim( $allDataInSheet[ $i ][ "AC" ] );
 
 //Verify that they are not records with the same content
-	$query = "SELECT bb_year FROM records WHERE bb_year = '" . $year . "' and bb_rnd = '" . $rnd . "'";
+	//$query = "SELECT bb_year FROM records WHERE bb_year = '" . $year . "' and bb_rnd = '" . $rnd . "'";
 
-	$sql = mysqli_query( $connection, $query );
+	//$sql = mysqli_query( $connection, $query );
 	
-	$recResult = mysqli_fetch_array($sql);
+	//$recResult = mysqli_fetch_array($sql);
 
-	$existName = $recResult[ "bb_year" ];
+	//$existName = $recResult[ "bb_year" ];
 
 //If $existName is empty it proceed with the INSERT query below 
 
-	if ( $existName == "" ) {
-		$query = "insert into records (bb_year, bb_rnd, bb_dt, bb_ovpck, bb_frrnd, bb_rdpck, bb_tm, bb_name, bb_pos, bb_war, bb_g, bb_ab, bb_hr, bb_ba, bb_ops, bb_g2, bb_w, bb_l, bb_era, bb_whip, bb_sv, bb_type, bb_doo, bb_state, bb_signed, bb_pv, bb_bonus, bb_diff, bb_bonus_per, bb_when) values('" . $year . "', '" . $rnd . "', '" . $dt . "', '" . $ovpck . "', '" . $frrnd . "', '" . $rdpck . "', '" . $tm . "', '" . $name . "', '" . $pos . "', '" . $war . "', '" . $g . "', '" . $ab . "', '" . $hr . "', '" . $ba . "', '" . $ops . "', '" . $g2 . "', '" . $w . "', '" . $l . "', '" . $era . "', '" . $whip . "', '" . $sv . "', '" . $type . "', '" . $doo . "', '" . $state . "', '" . $signed . "', '" . $pv . "', '" . $bonus . "', '" . $diff . "', '" . $bonus_per . "', 'NOW()');";
+	//if ( $existName == "" ) {
+		$query = "insert into records (bb_year, bb_rnd, bb_dt, bb_ovpck, bb_frrnd, bb_rdpck, bb_tm, bb_name, bb_pos, bb_war, bb_g, bb_ab, bb_hr, bb_ba, bb_ops, bb_g2, bb_w, bb_l, bb_era, bb_whip, bb_sv, bb_type, bb_doo, bb_state, bb_signed, bb_pv, bb_bonus, bb_diff, bb_bonus_per, bb_when) values('" . $year . "', '" . $rnd . "', '" . $dt . "', '" . $ovpck . "', '" . $frrnd . "', '" . $rdpck . "', '" . $tm . "', '" . $name . "', '" . $pos . "', '" . $war . "', '" . $g . "', '" . $ab . "', '" . $hr . "', '" . $ba . "', '" . $ops . "', '" . $g2 . "', '" . $w . "', '" . $l . "', '" . $era . "', '" . $whip . "', '" . $sv . "', '" . $type . "', '" . $doo . "', '" . $state . "', '" . $signed . "', '" . $pv . "', '" . $bonus . "', '" . $diff . "', '" . $bonus_per . "', NOW())";
 		$insertTable = mysqli_query( $connection, $query );
 		
 
 //Messages of success in a variable
 		
-		$msg = 'Record has been added. <div style="Padding:20px 0 0 0;"><a href="index.php" target="_self">Go Back to tutorial</a></div>';
+	//	$msg = 'Record has been added. <div style="Padding:20px 0 0 0;"><a href="index.php" target="_self">Go Back to tutorial</a></div>';
 
-	} else {
+//	} else {
 
 		$msg = 'Record already exist. <div style="Padding:20px 0 0 0;"><a href="index.php" target="_self">Go Back to tutorial</a></div>';
 
-	}
+//	}
 
 }
 
