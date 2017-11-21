@@ -10,6 +10,8 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -40,7 +42,7 @@ function DetectSecond(){
 
 }
 <!--Validation-->	
-function Validation(){
+/*function Validation(){
 
 			var n = document.forms["myForm"]["datepicker"].value;
 			var l = document.forms["myForm"]["datepicker_sec"].value;
@@ -57,6 +59,11 @@ function Validation(){
 				return false;
 			}
 			
+}*/
+
+function Hellow(){
+
+	alert("Hola");
 }
 <!--End VAlidation	-->
 </script>
@@ -78,7 +85,7 @@ body {
 <?php 
 
 require_once( '../classes/class.database.php' );
-require_once('../classes/session_conn.php'); 
+//require_once('../classes/session_conn.php'); 
 
 $medio = "";
 $restoA = "";	
@@ -95,9 +102,6 @@ $datetime = $datetime->format('Y-m-d');
 $datepicker_sec = $datetime; 
 		
 		if (isset($_POST['medio'])) 					$medio 					= $_POST['medio'];
-		if (isset($_POST['camp'])) 						$camp 					= $_POST['camp']	;
-		if (isset($_POST['land'])) 						$land 					= $_POST['land'];
-		if (isset($_POST['camp_code'])) 				$camp_code 				= $_POST['camp_code']	;
 		if (isset($_POST['datepicker'])) 				$datepicker 			= $_POST['datepicker'];
 		if (isset($_POST['datepicker_sec'])) 			$datepicker_sec 		= $_POST['datepicker_sec'];
 		
@@ -122,19 +126,19 @@ $datepicker_sec = $datetime;
 	</div>
 </div>
 	<p>&nbsp;</p>
-	<div class="row">
+	<!-- <div class="row">
 		<div class="container">
-			<div class="pull-right"><a href="export.php?medio=<?php print $medio; ?>&camp=<?php print $camp; ?>&cc=<?php print $camp_code; ?>&datepicker=<?php print $datepicker; ?>&datepicker_sec=<?php print $datepicker_sec; ?>" onclick="document.theForm.submit();" class="btn btn-success" style="font-size:14px; color:#FFF; text-decoration:none;">EXPORT AS .XLS</a>
+			<div class="pull-right"><a href="export.php?medio=<?php //print $medio; ?>&camp=<?php //print $camp; ?>&cc=<?php //print $camp_code; ?>&datepicker=<?php //print $datepicker; ?>&datepicker_sec=<?php //print $datepicker_sec; ?>" onclick="document.theForm.submit();" class="btn btn-success" style="font-size:14px; color:#FFF; text-decoration:none;">EXPORT AS .XLS</a>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<div class="row">
 	<div class="container" >
 
 		<form name="myForm" method="POST" action="" onSubmit="return Validation()">
 			<div class="pull-left">
 				<input type="hidden" name="medio" value="theuser"/>
-				<div class="col-md-2" align="center"> <strong>Medio:</strong><br/>
+				<div class="col-md-2" align="center"> <strong>Position:</strong><br/>
 
 
 
@@ -146,7 +150,7 @@ $datepicker_sec = $datetime;
 
 					<?php
 
-					$sql = "SELECT DISTINCT med_rec FROM zforms_records ORDER BY med_rec ";
+					$sql = "SELECT DISTINCT bb_pos FROM records";
 					$result = $conn->query( $sql );
 
 
@@ -154,61 +158,7 @@ $datepicker_sec = $datetime;
 						// output data of each row
 						echo '<select class="form-control" name="medio" id="medio" onChange="Detect()">';
 						while ( $row = $result->fetch_assoc() ) {
-							echo "<option value='" . $row[ 'med_rec' ] . "' id='" . $row[ 'med_rec' ] . "' >" . $row[ 'med_rec' ] . "</option>";
-						}
-						echo '</select>';
-					}
-					//$conn->close();
-
-					?>
-				</div>
-				<div class="col-md-2" align="center"><strong>Codigo de Origen:</strong><br/>
-					<?php
-
-					$sql = "SELECT DISTINCT code_rec FROM zforms_records ORDER BY code_rec ";
-					$result = $conn->query( $sql );
-
-					if ( $result->num_rows > 0 ) {
-						// output data of each row
-						echo '<select class="form-control" name="camp" id="camp" onChange="DetectSecond()">';
-						while ( $row = $result->fetch_assoc() ) {
-							echo "<option value='" . $row[ 'code_rec' ] . "' id='" . $row[ 'code_rec' ] . "'>" . $row[ 'code_rec' ] . "</option>";
-						}
-						echo '</select>';
-					}
-					//$conn->close();
-
-					?>
-				</div>
-				<div class="col-md-2" align="center"><strong>Campa&ntilde;a:</strong><br/>
-					<?php
-
-					$sql = "SELECT DISTINCT land_rec FROM zforms_records ORDER BY land_rec ";
-					$result = $conn->query( $sql );
-
-					if ( $result->num_rows > 0 ) {
-						// output data of each row
-						echo '<select class="form-control" name="land" id="land" onChange="DetectSecond()">';
-						while ( $row = $result->fetch_assoc() ) {
-							echo "<option value='" . $row[ 'land_rec' ] . "' id='" . $row[ 'land_rec' ] . "'>" . $row[ 'land_rec' ] . "</option>";
-						}
-						echo '</select>';
-					}
-					//$conn->close();
-
-					?>
-				</div>
-				<div class="col-md-2" align="center"><strong>Codigo de campa&ntilde;a:</strong><br/>
-					<?php
-
-					$sql = "SELECT DISTINCT camp_code_rec FROM zforms_records ORDER BY camp_code_rec ";
-					$result = $conn->query( $sql );
-
-					if ( $result->num_rows > 0 ) {
-						// output data of each row
-						echo '<select  class="form-control" name="camp_code" id="camp_code" onChange="DetectSecond()">';
-						while ( $row = $result->fetch_assoc() ) {
-							echo "<option value='" . $row[ 'camp_code_rec' ] . "' id='" . $row[ 'camp_code_rec' ] . "'>" . $row[ 'camp_code_rec' ] . "</option>";
+							echo "<option value='" . $row[ 'bb_pos' ] . "' id='" . $row[ 'bb_pos' ] . "' >" . $row[ 'bb_pos' ] . "</option>";
 						}
 						echo '</select>';
 					}
@@ -238,16 +188,14 @@ $datepicker_sec = $datetime;
   <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="records" style="padding:5px; font-size: 12px;">
       <tbody>
         <tr>
-          <td class="col-md-1" align="center"><strong>Nombre</strong></td>
-          <td class="col-md-1" align="center"><strong>CO</strong></td>
-          <td class="col-md-1" align="center"><strong>Apellido</strong></td>
-          <td class="col-md-1" align="center"><strong>Instituci&oacute;n</strong></td>
-           <td class="col-md-1" align="center"><strong>Centros</strong></td>
-          <td class="col-md-1" align="center"><strong>Campa&ntilde;a</strong></td>
-          <td class="col-md-1" align="center"><strong>CC</strong></td>
-          <td class="col-md-1" align="center"><strong>Email</strong></td>
-          <td class="col-md-1" align="center"><strong>Medio</strong></td>
-          <td class="col-md-1" align="center"><strong>Cuando</strong></td>
+          <td class="col-lg-2 col-md-2 col-sm-2" align="center"><strong>Name</strong></td>
+          <td class="col-lg-2 col-md-2 col-sm-2" align="center"><strong>Position</strong></td>
+          <td class="col-lg-2 col-md-2 col-sm-2" align="center"><strong>State</strong></td>
+          <td class="col-lg-2 col-md-2 col-sm-2" align="center"><strong>University</strong></td>
+          <td class="col-lg-2 col-md-2 col-sm-2" align="center"><strong>Round Pick</strong></td>
+		  <td class="col-lg-1 col-md-1 col-sm-1" align="center"><strong>Edit</strong></td>
+          <td class="col-lg-1 col-md-1 col-sm-1" align="center"><strong>Delete</strong></td>
+  
         </tr>
       </tbody>
     </table>
@@ -273,7 +221,7 @@ if (!is_numeric($iPageCurrent)) $iPageCurrent = 1;
 	
 		//Finaliza la lista de x usuario
 		
-	    $sql = "select * from zforms_records";
+	    $sql = "select * from records";
 	
 		$result = mysqli_query($conn, $sql);
 		
@@ -283,32 +231,18 @@ if (!is_numeric($iPageCurrent)) $iPageCurrent = 1;
 		
 		if($medio != ""){
 				
-				$restoA = " AND med_rec = '" . $medio . "'";
+				$restoA = " WHERE bb_pos = '" . $medio . "'";
 	
 			}
-		if($camp != ""){
-				
-				$restoB = " AND code_rec = '" . $camp . "'";
-	
-			}
-		if($land != ""){
-				
-				$restoC = " AND land_rec = '" . $land . "'";
-	
-			}
-		if($camp_code != ""){
-				
-				$restoD = " AND camp_code_rec = '" . $camp_code . "'";
-	
-			}
+
 			
-		if($datepicker != "" && $datepicker_sec != ""){
+		/*if($datepicker != "" && $datepicker_sec != ""){
 			
 				$resto_sec = "WHERE (when_rec BETWEEN '" . $datepicker . "%' AND '" . $datepicker_sec ."%')";
 				
-		}
+		}*/
 
-		$sql = "select * from zforms_records "  . $resto_sec . " " . $restoA . "" . $restoB . "" . $restoC . "" . $restoD ." ORDER BY when_rec DESC " ; //AND med_rec = '" . $medio . "' AND code_rec = '" . $camp . "'
+		$sql = "select * from records "  . $restoA . " ORDER BY bb_when DESC " ; //AND med_rec = '" . $medio . "' AND code_rec = '" . $camp . "'
 		//echo $sql; 
 			
 					
@@ -336,16 +270,14 @@ if (!is_numeric($iPageCurrent)) $iPageCurrent = 1;
     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="records" style="padding:5px; font-size: 12px;">
       <tbody>
         <tr>
-          <td class="col-md-1" align="center"><?php print $rs["name_rec"]; ?></td>
-          <td class="col-md-1" align="center"><?php print $rs["code_rec"]; ?></td>
-          <td class="col-md-1" align="center"><?php print $rs["lname_rec"]; ?></td>
-          <td class="col-md-1" align="center"><?php print $rs["inst_rec"]; ?></td>
-          <td class="col-md-1" align="center"><?php print $rs["centro_rec"]; ?></td>
-          <td class="col-md-1" align="center"><?php print $rs["camp_rec"]; ?></td>
-          <td class="col-md-1" align="center"><?php print $rs["camp_code_rec"]; ?></td>
-          <td class="col-md-1" align="center"><?php print $rs["email_rec"]; ?></td>
-          <td class="col-md-1" align="center"><?php print $rs["med_rec"]; ?></td>
-          <td class="col-md-1" align="center"><?php print $rs["when_rec"]; ?></td>
+          <td class="col-lg-2 col-md-2 col-sm-2" align="center" ondblclick="Hellow()"><?php print $rs["bb_name"]; ?></td>
+          <td class="col-lg-2 col-md-2 col-sm-2" align="center"><?php print $rs["bb_pos"]; ?></td>
+          <td class="col-lg-2 col-md-2 col-sm-2" align="center"><?php print $rs["bb_state"]; ?></td>
+          <td class="col-lg-2 col-md-2 col-sm-2" align="center"><?php print $rs["bb_doo"]; ?></td>
+          <td class="col-lg-2 col-md-2 col-sm-2" align="center"><?php print $rs["bb_rdpck"]; ?></td>
+		  <td class="col-lg-1 col-md-1 col-sm-1" align="center"><img src="images/edit.png" width=30 height=30 /></td>
+          <td class="col-lg-1 col-md-1 col-sm-1" align="center"><img src="images/delete.png" width=30 height=30 /></td>
+  
         </tr>
       </tbody>
     </table>

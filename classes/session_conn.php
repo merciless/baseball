@@ -1,0 +1,38 @@
+<?php 
+
+
+// Set the path on constants here is not require just for testing
+
+$session_path = "";
+
+session_save_path($session_path);
+
+// Initialize session data get the values from the session created with values on login
+
+session_start();
+
+if (isset($_SESSION["id_rec"])) {
+	
+	//print ('Success'); //testing
+	
+
+	$user_name      = $_SESSION["name_rec"];
+
+	$user_id        = $_SESSION["id_rec"];
+
+	$use_access     = $_SESSION["email_rec"];
+
+	//$current_option = $_SESSION["current_option"];
+		
+} else {
+	
+	//print ('unSuccess'); //testing
+	
+	header("Location: display.php?ErrMsg=Your+session+has+expired");
+
+	exit;
+	
+}
+
+
+?>

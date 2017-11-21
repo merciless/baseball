@@ -1,6 +1,6 @@
 <?php 
 require_once( '../classes/class.database.php' );
-require_once('../classes/session_conn.php'); 
+//require_once('../classes/session_conn.php'); 
 
 
 
